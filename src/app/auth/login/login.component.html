@@ -1,0 +1,44 @@
+<section>
+    <form class="login-form"
+          #f="ngForm"
+          (ngSubmit)="onSubmit(f)">
+      <div class="form-header">
+        <h1>Log in to admin panel</h1>
+        <!--<span><a [routerLink]="'/signup'">or signup</a></span>-->
+      </div>
+      <mat-form-field>
+        <input type="text"
+               matInput
+               placeholder="Your username"
+               ngModel
+               name="username"
+               required
+               #nameInput="ngModel">
+        <mat-hint>Please, enter your username</mat-hint>
+        <mat-error *ngIf="nameInput.hasError('required') && nameInput.touched">
+          This field cannot be empty.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password"
+               matInput
+               placeholder="Your password"
+               ngModel
+               name="password"
+               minlength="5"
+               required
+               autocomplete="new-password">
+        <mat-hint>Please, enter your password</mat-hint>
+        <mat-error>Password must contain at least 5 characters.</mat-error>
+      </mat-form-field>
+      <button class="submit-btn"
+              *ngIf="!isLoading"
+              mat-raised-button
+              color="primary"
+              [disabled]="f.invalid">
+        LOG IN</button>
+      <div class="uploader-status" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+      </div>
+    </form>
+</section>

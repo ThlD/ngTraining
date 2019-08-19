@@ -1,0 +1,69 @@
+<mat-tab-group>
+  <mat-tab label="Fetch User">
+    <silk-fetch-user (onUsersListChanged)="getUsers()"></silk-fetch-user>
+  </mat-tab>
+  <mat-tab label="Add User">
+    <silk-add-user (onAddUser)="getUsers()"></silk-add-user>
+  </mat-tab>
+</mat-tab-group>
+<hr>
+<section [hidden]="isLoading" class="users-list" >
+  <h1>List of Users</h1>
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span>{{element.id}}</span>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell  *matCellDef="let element">
+        <span *ngIf="!isEdit || (isEdit && editableUserId !== element.id)">{{element.name}}</span>
+        <input *ngIf="isEdit && editableUserId === element.id" type="text" [(ngModel)]="editableUserName">
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngIf="!isEdit || (isEdit && editableUserId !== element.id)">{{element.email}}</span>
+        <input *ngIf="isEdit && editableUserId === element.id" type="text" [(ngModel)]="editableUserEmail">
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button *ngIf="!isEdit || (isEdit && editableUserId !== element.id)"
+                mat-raised-button
+                color="primary"
+                (click)="enableEditMode(element)">
+          Update</button>
+        <button *ngIf="!isEdit || (isEdit && editableUserId !== element.id)"
+                mat-raised-button
+                color="warn"
+                (click)="deleteUser(element.id)">
+          Delete</button>
+        <button *ngIf="isEdit && editableUserId === element.id"
+                mat-raised-button
+                color="warn"
+                (click)="editUser(element.id)">
+          Confirm</button>
+        <button *ngIf="isEdit && editableUserId === element.id"
+                mat-raised-button
+                color="primary"
+                (click)="disableEditMode()">
+          Cancel</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons>
+  </mat-paginator>
+</section>
+<div class="uploader-status" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+

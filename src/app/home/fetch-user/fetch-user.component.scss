@@ -1,0 +1,23 @@
+section {
+  margin-top: 20px;
+}
+
+.fetch-form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+mat-table {
+  margin-bottom: 40px;
+}
+
+button {
+  margin-right: 5px;
+}
+
+.uploader-status {
+  display: flex;
+  justify-content: center;
+}

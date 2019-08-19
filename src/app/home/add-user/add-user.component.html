@@ -1,0 +1,27 @@
+<section>
+  <form #f="ngForm"
+        class="add-form"
+        (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input type="text"
+             matInput
+             ngModel
+             name="name"
+             required
+             placeholder="Enter Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="email"
+             matInput
+             ngModel
+             name="email"
+             required
+             email
+             placeholder="Enter Email">
+    </mat-form-field>
+    <button mat-raised-button
+            color="primary"
+            [disabled]="f.invalid">
+      Add User</button>
+  </form>
+</section>

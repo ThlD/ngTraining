@@ -1,0 +1,19 @@
+section {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+.login-form {
+  width:450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-header {
+  text-align: center;
+}
+
+.submit-btn {
+  width: 50%;
+  margin: 20px auto;
+}
